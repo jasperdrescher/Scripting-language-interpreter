@@ -53,6 +53,45 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
 	    return evaluate(expr.right);                     
 	  }
+	 
+	 @Override                                                            
+	  public Object visitSetExpr(Expr.Set expr) {                          
+	    Object object = evaluate(expr.object);
+
+	    if (!(object instanceof BoxInstance)) { 
+	      throw new RuntimeError(expr.name, "Only instances have fields.");
+	    }                                                                  
+
+	    Object value = evaluate(expr.value);                               
+	    ((BoxInstance)object).set(expr.name, value);                       
+	    return value;                                                      
+	  }
+	 
+	 @Override                                           
+	  public Object visitSuperExpr(Expr.Super expr) {     
+	    int distance = locals.get(expr);                  
+	    BoxClass superclass = (BoxClass)environment.getAt(
+	        distance, "super");    
+	    
+	 // "this" is always one level nearer than "super"'s environment.
+	    BoxInstance object = (BoxInstance)environment.getAt(            
+	        distance - 1, "this");
+	    
+	 BoxFunction method = superclass.findMethod(         
+		        object, expr.method.lexeme);
+	    
+	    if (method == null) {                                     
+	        throw new RuntimeError(expr.method,                     
+	            "Undefined property '" + expr.method.lexeme + "'.");
+	      }
+
+	    return method;
+	  }
+	 
+	 @Override                                    
+	  public Object visitThisExpr(Expr.This expr) {
+	    return lookUpVariable(expr.keyword, expr); 
+	  }
 	
 	@Override                                      
 	  public Object visitUnaryExpr(Expr.Unary expr) {
@@ -160,6 +199,39 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	    return null;                                                
 	  }
 	
+	@Override                                         
+	  public Void visitClassStmt(Stmt.Class stmt) {     
+		Object superclass = null;                       
+	    if (stmt.superclass != null) {                  
+	      superclass = evaluate(stmt.superclass);       
+	      if (!(superclass instanceof BoxClass)) {      
+	        throw new RuntimeError(stmt.superclass.name,
+	            "Superclass must be a class.");         
+	      }                                             
+	    }
+	    
+	    environment.define(stmt.name.lexeme, null);   
+	    
+	    if (stmt.superclass != null) {                     
+	        environment = new Environment(environment);      
+	        environment.define("super", superclass);         
+	      }
+	    
+	    Map<String, BoxFunction> methods = new HashMap<>();           
+	    for (Stmt.Function method : stmt.methods) {                   
+	      BoxFunction function = new BoxFunction(method, environment);
+	      methods.put(method.name.lexeme, function);                  
+	    }
+
+	    BoxClass klass = new BoxClass(stmt.name.lexeme, (BoxClass)superclass, methods);     
+	    
+	    if (superclass != null) {                      
+	        environment = environment.enclosing;         
+	      }
+	    environment.assign(stmt.name, klass);           
+	    return null;                                    
+	  } 
+	
 	@Override                                              
 	  public Void visitExpressionStmt(Stmt.Expression stmt) {
 	    evaluate(stmt.expression);                           
@@ -168,7 +240,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	
 	@Override                                          
 	  public Void visitFunctionStmt(Stmt.Function stmt) {
-		BoxFunction function = new BoxFunction(stmt, environment);
+		BoxFunction function = new BoxFunction(stmt, environment, false);
 	    environment.define(stmt.name.lexeme, function);  
 	    return null;                                     
 	  }
@@ -300,5 +372,16 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	      }
 	    
 	    return function.call(this, arguments);              
+	  }
+	
+	@Override                                        
+	  public Object visitGetExpr(Expr.Get expr) {      
+	    Object object = evaluate(expr.object);         
+	    if (object instanceof BoxInstance) {           
+	      return ((BoxInstance) object).get(expr.name);
+	    }
+
+	    throw new RuntimeError(expr.name,              
+	        "Only instances have properties.");        
 	  }
 }

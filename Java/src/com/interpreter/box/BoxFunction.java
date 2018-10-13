@@ -5,11 +5,20 @@ import java.util.List;
 class BoxFunction implements BoxCallable {
   private final Stmt.Function declaration;
   private final Environment closure;
-  
-  BoxFunction(Stmt.Function declaration, Environment closure) {
+  private final boolean isInitializer;
+
+  BoxFunction(Stmt.Function declaration, Environment closure,
+              boolean isInitializer) {                       
+    this.isInitializer = isInitializer;
 	    this.closure = closure;
     this.declaration = declaration;       
   }     
+  
+  BoxFunction bind(BoxInstance instance) {             
+	    Environment environment = new Environment(closure);
+	    environment.define("this", instance);              
+	    return new BoxFunction(declaration, environment, isInitializer); 
+	  }
   
   @Override                                       
   public String toString() {                      
@@ -31,7 +40,8 @@ class BoxFunction implements BoxCallable {
 
     try {                                                     
         interpreter.executeBlock(declaration.body, environment);
-      } catch (Return returnValue) {                            
+      } catch (Return returnValue) { 
+    	  if (isInitializer) return closure.getAt(0, "this");
         return returnValue.value;                               
       }
     
