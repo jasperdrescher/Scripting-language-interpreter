@@ -1,4 +1,4 @@
-# Simple-and-secure-accounts
+# Scripting-language-interpreter
 A full-featured scripting language interpreter.
 
 ## Table of contents
