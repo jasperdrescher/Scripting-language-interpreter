@@ -40,8 +40,6 @@ class BoxClass implements BoxCallable {
       initializer.bind(instance).call(interpreter, arguments);         
     }
     
-    if (isInitializer) return closure.getAt(0, "this");
-    
     return instance;                                                   
   }
 

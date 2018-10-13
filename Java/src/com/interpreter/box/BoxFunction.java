@@ -45,6 +45,8 @@ class BoxFunction implements BoxCallable {
         return returnValue.value;                               
       }
     
+    if (isInitializer) return closure.getAt(0, "this");
+    
     return null;                                                       
   }
 }

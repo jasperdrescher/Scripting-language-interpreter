@@ -219,7 +219,8 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	    
 	    Map<String, BoxFunction> methods = new HashMap<>();           
 	    for (Stmt.Function method : stmt.methods) {                   
-	      BoxFunction function = new BoxFunction(method, environment);
+	    	BoxFunction function = new BoxFunction(method, environment,
+	    	          method.name.lexeme.equals("init"));
 	      methods.put(method.name.lexeme, function);                  
 	    }
 
