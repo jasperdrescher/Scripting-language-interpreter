@@ -1,5 +1,5 @@
 # Simple-and-secure-accounts
-A simple and secure php login framework with data-filtering and encryption using modern techniques.
+A full-featured scripting language interpreter.
 
 ## Table of contents
 - [Usage](#usage)
