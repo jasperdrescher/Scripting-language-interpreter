@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Interpreter
 {
-    public class RuntimeError
+    public class RuntimeError : Exception
     {
         private Token token;
         private string message;

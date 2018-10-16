@@ -79,18 +79,18 @@ namespace Interpreter.Box
             interpreter.interpret(statements);
         }
 
-        static void error(int line, String message)
+        public static void error(int line, string message)
         {
             report(line, "", message);
         }
 
-        private static void report(int line, String where, String message)
+        private static void report(int line, string where, string message)
         {
             Console.WriteLine("[line " + line + "] Error" + where + ": " + message);
             hadError = true;
         }
 
-        static void error(Token token, String message)
+        public static void error(Token token, string message)
         {
             if (token.type == TokenType.EOF)
             {
@@ -102,7 +102,7 @@ namespace Interpreter.Box
             }
         }
 
-        static void runtimeError(RuntimeError error)
+        public static void runtimeError(RuntimeError error)
         {
             Console.WriteLine(error.GetMessage() + "\n[line " + error.GetToken().line + "]");
             hadRuntimeError = true;
