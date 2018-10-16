@@ -14,7 +14,7 @@ namespace Interpreter
             T visitFunctionStmt(Function stmt);
             T visitIfStmt(If stmt);
             T visitPrintStmt(Print stmt);
-            T visitTeturnStmt(Teturn stmt);
+            T visitReturnStmt(Return stmt);
             T visitVarStmt(Var stmt);
             T visitWhileStmt(While stmt);
         }
@@ -121,9 +121,9 @@ namespace Interpreter
             public Expr expression;
         }
 
-        public class Teturn : Stmt
+        public class Return : Stmt
         {
-            Teturn(Token keyword, Expr value)
+            Return(Token keyword, Expr value)
             {
                 this.keyword = keyword;
                 this.value = value;
@@ -131,7 +131,7 @@ namespace Interpreter
 
             public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
             {
-                return visitor.visitTeturnStmt(this);
+                return visitor.visitReturnStmt(this);
             }
 
             public Token keyword;
