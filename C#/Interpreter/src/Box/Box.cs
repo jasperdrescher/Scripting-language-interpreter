@@ -47,7 +47,6 @@ namespace Interpreter.Box
             }
         }
 
-
         private static void runPrompt()
         {
             string input = Console.In.ToString();
