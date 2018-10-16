@@ -9,17 +9,17 @@ namespace Interpreter
         public Environment enclosing;
 	    private Dictionary<string, object> values = new Dictionary<string, object>();
 
-        Environment()
+        public Environment()
         {
             enclosing = null;
         }
 
-        Environment(Environment enclosing)
+        public Environment(Environment enclosing)
         {
             this.enclosing = enclosing;
         }
 
-        object Get(Token name)
+        public object Get(Token name)
         {
             if (values.ContainsKey(name.lexeme))
             {
@@ -33,7 +33,7 @@ namespace Interpreter
             return null;
         }
 
-        void assign(Token name, object value)
+        public void assign(Token name, object value)
         {
             if (values.ContainsKey(name.lexeme))
             {
@@ -50,12 +50,12 @@ namespace Interpreter
             Console.WriteLine("Undefined variable '" + name.lexeme + "'.");
         }
 
-        void define(string name, Object value)
+        public void define(string name, Object value)
         {
             values[name] = value;
         }
 
-        Environment ancestor(int distance)
+        public Environment ancestor(int distance)
         {
             Environment environment = this;
             for (int i = 0; i < distance; i++)
@@ -66,12 +66,12 @@ namespace Interpreter
             return environment;
         }
 
-        object getAt(int distance, string name)
+        public object getAt(int distance, string name)
         {
             return ancestor(distance).values[name];
         }
 
-        void assignAt(int distance, Token name, object value)
+        public void assignAt(int distance, Token name, object value)
         {
             ancestor(distance).values[name.lexeme] = value;
         }
