@@ -21,7 +21,7 @@ namespace Interpreter
 
         public class Block : Stmt
         {
-            Block(List<Stmt> statements)
+            public Block(List<Stmt> statements)
             {
                 this.statements = statements;
             }
@@ -36,7 +36,7 @@ namespace Interpreter
 
         public class Class : Stmt
         {
-            Class(Token name, Expr.Variable superclass, List<Stmt.Function> methods)
+            public Class(Token name, Expr.Variable superclass, List<Stmt.Function> methods)
             {
                 this.name = name;
                 this.superclass = superclass;
@@ -55,7 +55,7 @@ namespace Interpreter
 
         public class Expression : Stmt
         {
-            Expression(Expression expression)
+            public Expression(Expression expression)
             {
                 this.expression = expression;
             }
@@ -70,7 +70,7 @@ namespace Interpreter
 
         public class Function : Stmt
         {
-            Function(Token name, List<Token> parameters, List<Stmt> body)
+            public Function(Token name, List<Token> parameters, List<Stmt> body)
             {
                 this.name = name;
                 this.parameters = parameters;
@@ -89,7 +89,7 @@ namespace Interpreter
 
         public class If : Stmt
         {
-            If(Expr condition, Stmt thenBranch, Stmt elseBranch)
+            public If(Expr condition, Stmt thenBranch, Stmt elseBranch)
             {
                 this.condition = condition;
                 this.thenBranch = thenBranch;
@@ -108,7 +108,7 @@ namespace Interpreter
 
         public class Print : Stmt
         {
-            Print(Expr expression)
+            public Print(Expr expression)
             {
                 this.expression = expression;
             }
@@ -123,7 +123,7 @@ namespace Interpreter
 
         public class Return : Stmt
         {
-            Return(Token keyword, Expr value)
+            public Return(Token keyword, Expr value)
             {
                 this.keyword = keyword;
                 this.value = value;
@@ -140,7 +140,7 @@ namespace Interpreter
 
         public class Var : Stmt
         {
-            Var(Token name, Expr initializer)
+            public Var(Token name, Expr initializer)
             {
                 this.name = name;
                 this.initializer = initializer;
