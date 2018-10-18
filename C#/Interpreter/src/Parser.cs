@@ -120,7 +120,10 @@ namespace Interpreter
 
             if (increment != null)
             {
-                body = new Stmt.Block(Arrays.asList(body, new Stmt.Expression(increment)));
+                List<Stmt> statements = new List<Stmt>();
+                statements.Add(body);
+                statements.Add(new Stmt.Expression(increment));
+                body = new Stmt.Block(statements);
             }
 
             if (condition == null) condition = new Expr.Literal(true);
@@ -128,7 +131,10 @@ namespace Interpreter
 
             if (initializer != null)
             {
-                body = new Stmt.Block(Arrays.asList(initializer, body));
+                List<Stmt> statements = new List<Stmt>();
+                statements.Add(initializer);
+                statements.Add(body);
+                body = new Stmt.Block(statements);
             }
 
             return body;

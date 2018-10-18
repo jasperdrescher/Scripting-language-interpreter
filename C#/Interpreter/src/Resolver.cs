@@ -311,7 +311,7 @@ namespace Interpreter
         {
             for (int i = scopes.Count - 1; i >= 0; i--)
             {
-                if (scopes.(i).containsKey(name.lexeme))
+                if (scopes.(i).ContainsKey(name.lexeme))
                 {
                     interpreter.resolve(expr, scopes.Count - 1 - i);
                     return;

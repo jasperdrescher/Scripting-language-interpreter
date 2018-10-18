@@ -30,7 +30,7 @@ namespace Interpreter
                 this.value = value;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitAssignExpr(this);
             }
@@ -48,7 +48,7 @@ namespace Interpreter
                 this.right = right;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitBinaryExpr(this);
             }
@@ -67,7 +67,7 @@ namespace Interpreter
                 this.arguments = arguments;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitCallExpr(this);
             }
@@ -85,7 +85,7 @@ namespace Interpreter
                 this.name = name;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitGetExpr(this);
             }
@@ -101,7 +101,7 @@ namespace Interpreter
                 this.expression = expression;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitGroupingExpr(this);
             }
@@ -111,17 +111,17 @@ namespace Interpreter
 
         public class Literal : Expr
         {
-            public Literal(Object value)
+            public Literal(object value)
             {
                 this.value = value;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitLiteralExpr(this);
             }
 
-            public Object value;
+            public object value;
         }
 
         public class Logical : Expr
@@ -133,7 +133,7 @@ namespace Interpreter
                 this.right = right;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitLogicalExpr(this);
             }
@@ -152,7 +152,7 @@ namespace Interpreter
                 this.value = value;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitSetExpr(this);
             }
@@ -170,7 +170,7 @@ namespace Interpreter
                 this.method = method;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitSuperExpr(this);
             }
@@ -186,7 +186,7 @@ namespace Interpreter
                 this.keyword = keyword;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitThisExpr(this);
             }
@@ -202,7 +202,7 @@ namespace Interpreter
                 this.right = right;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitUnaryExpr(this);
             }
@@ -218,7 +218,7 @@ namespace Interpreter
                 this.name = name;
             }
 
-            public override Expresion accept<Expresion>(Visitor<Expresion> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitVariableExpr(this);
             }
@@ -226,6 +226,6 @@ namespace Interpreter
             public Token name;
         }
 
-        public abstract Expr accept<Expr>(Visitor<Expr> visitor);
+        public abstract T accept<T>(Visitor<T> visitor);
     }
 }

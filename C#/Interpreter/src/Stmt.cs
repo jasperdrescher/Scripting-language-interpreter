@@ -26,7 +26,7 @@ namespace Interpreter
                 this.statements = statements;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitBlockStmt(this);
             }
@@ -43,7 +43,7 @@ namespace Interpreter
                 this.methods = methods;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitClassStmt(this);
             }
@@ -60,7 +60,7 @@ namespace Interpreter
                 this.expression = expression;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitExpressionStmt(this);
             }
@@ -77,7 +77,7 @@ namespace Interpreter
                 this.body = body;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitFunctionStmt(this);
             }
@@ -96,7 +96,7 @@ namespace Interpreter
                 this.elseBranch = elseBranch;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitIfStmt(this);
             }
@@ -113,7 +113,7 @@ namespace Interpreter
                 this.expression = expression;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitPrintStmt(this);
             }
@@ -129,7 +129,7 @@ namespace Interpreter
                 this.value = value;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitReturnStmt(this);
             }
@@ -146,7 +146,7 @@ namespace Interpreter
                 this.initializer = initializer;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitVarStmt(this);
             }
@@ -163,7 +163,7 @@ namespace Interpreter
                 this.body = body;
             }
 
-            public override Stmt accept<Stmt>(Visitor<Stmt> visitor)
+            public override T accept<T>(Visitor<T> visitor)
             {
                 return visitor.visitWhileStmt(this);
             }
@@ -172,6 +172,6 @@ namespace Interpreter
             public Stmt body;
         }
 
-        public abstract Stmt accept<Stmt>(Visitor<Stmt> visitor);
+        public abstract T accept<T>(Visitor<T> visitor);
     }
 }
