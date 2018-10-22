@@ -9,12 +9,12 @@ namespace Interpreter
         private List<Token> tokens;
         private int current = 0;
 
-        Parser(List<Token> tokens)
+        public Parser(List<Token> tokens)
         {
             this.tokens = tokens;
         }
 
-        List<Stmt> parse()
+        public List<Stmt> parse()
         {
             List<Stmt> statements = new List<Stmt>();
             while (!isAtEnd())
