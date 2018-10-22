@@ -16,7 +16,7 @@ namespace Interpreter.Box
         {
             if (args.Length > 1)
             {
-                Console.WriteLine("Usage: blox [script]");
+                Console.WriteLine("Usage: box [script]");
                 return;
             }
             else if (args.Length == 1)
