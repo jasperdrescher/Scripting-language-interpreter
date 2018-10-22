@@ -128,7 +128,7 @@ namespace Interpreter
         private object lookUpVariable(Token name, Expr expr)
         {
             int distance = locals[expr];
-            if (distance != null)
+            if (distance > 0)
             {
                 return environment.getAt(distance, name.lexeme);
             }
@@ -140,7 +140,7 @@ namespace Interpreter
 
         private void checkNumberOperand(Token oper, object operand)
         {
-            if (oper is double) return;
+            if (operand is double) return;
             throw new RuntimeError(oper, "Operand must be a number.");
         }
 
@@ -334,7 +334,7 @@ namespace Interpreter
             object value = evaluate(expr.value);
 
             int distance = locals[expr];
-            if (distance != null)
+            if (distance > 0)
             {
                 environment.assignAt(distance, expr.name, value);
             }
