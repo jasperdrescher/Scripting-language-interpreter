@@ -21,7 +21,7 @@ namespace Interpreter
 
     public class Interpreter : Expr.Visitor<object>, Stmt.Visitor<object>
     {
-        public Environment globals = new Environment();
+        public static Environment globals = new Environment();
         private Environment environment = globals;
         private Dictionary<Expr, int> locals = new Dictionary<Expr, int>();
 
@@ -82,9 +82,8 @@ namespace Interpreter
 
         public object visitSuperExpr(Expr.Super expr)
         {
-            int distance = locals.get(expr);
-            Box.BoxClass superclass = (Box.BoxClass)environment.getAt(
-                distance, "super");
+            int distance = locals[expr];
+            Box.BoxClass superclass = (Box.BoxClass)environment.getAt(distance, "super");
 
             // "this" is always one level nearer than "super"'s environment.
             Box.BoxInstance obj = (Box.BoxInstance)environment.getAt(distance - 1, "this");
@@ -128,14 +127,14 @@ namespace Interpreter
 
         private object lookUpVariable(Token name, Expr expr)
         {
-            int distance = locals.get(expr);
+            int distance = locals[expr];
             if (distance != null)
             {
                 return environment.getAt(distance, name.lexeme);
             }
             else
             {
-                return globals.get(name);
+                return globals.Get(name);
             }
         }
 
@@ -165,7 +164,7 @@ namespace Interpreter
             if (a == null && b == null) return true;
             if (a == null) return false;
 
-            return a.equals(b);
+            return a.Equals(b);
         }
 
         private string stringify(object obj)
@@ -175,15 +174,15 @@ namespace Interpreter
             // Hack. Work around Java adding ".0" to integer-valued doubles.
             if (obj is double)
                 {
-                string text = obj.toString();
-                if (text.endsWith(".0"))
+                string text = obj.ToString();
+                if (text.EndsWith(".0"))
                 {
-                    text = text.substring(0, text.length() - 2);
+                    text = text.Substring(0, text.Length - 2);
                 }
                 return text;
             }
 
-            return obj.toString();
+            return obj.ToString();
         }
 
         public object visitGroupingExpr(Expr.Grouping expr)
@@ -203,7 +202,7 @@ namespace Interpreter
 
         public void resolve(Expr expr, int depth)
         {
-            locals.put(expr, depth);
+            locals[expr] = depth;
         }
 
         public void executeBlock(List<Stmt> statements, Environment environment)
@@ -254,8 +253,8 @@ namespace Interpreter
 
             foreach (Stmt.Function method in stmt.methods)
             {
-                Box.BoxFunction function = new Box.BoxFunction(method, environment, method.name.lexeme.equals("init"));
-                methods.put(method.name.lexeme, function);
+                Box.BoxFunction function = new Box.BoxFunction(method, environment, method.name.lexeme.Equals("init"));
+                methods[method.name.lexeme] = function;
             }
 
             Box.BoxClass klass = new Box.BoxClass(stmt.name.lexeme, (Box.BoxClass)superclass, methods);
@@ -334,7 +333,7 @@ namespace Interpreter
         {
             object value = evaluate(expr.value);
 
-            int distance = locals.get(expr);
+            int distance = locals[expr];
             if (distance != null)
             {
                 environment.assignAt(distance, expr.name, value);
@@ -425,7 +424,7 @@ namespace Interpreter
             object obj = evaluate(expr.obj);
             if (obj is Box.BoxInstance)
             {
-                return ((Box.BoxInstance)obj).get(expr.name);
+                return ((Box.BoxInstance)obj).Get(expr.name);
             }
 
             throw new RuntimeError(expr.name, "Only instances have properties.");
