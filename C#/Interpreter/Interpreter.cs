@@ -127,8 +127,13 @@ namespace Interpreter
 
         private object lookUpVariable(Token name, Expr expr)
         {
-            int distance = locals[expr];
-            if (distance > 0)
+            int distance = -1;
+            if (locals.ContainsKey(expr))
+            {
+                distance = locals[expr];
+            }
+
+            if (distance > -1)
             {
                 return environment.getAt(distance, name.lexeme);
             }
@@ -333,8 +338,14 @@ namespace Interpreter
         {
             object value = evaluate(expr.value);
 
-            int distance = locals[expr];
-            if (distance > 0)
+            int distance = -1;
+
+            if (locals.ContainsKey(expr))
+            {
+                distance = locals[expr];
+            }
+
+            if (distance > -1)
             {
                 environment.assignAt(distance, expr.name, value);
             }

@@ -111,9 +111,15 @@ namespace Interpreter
             while (isAlphaNumeric(peek())) advance();
 
             // See if the identifier is a reserved word.   
-            string text = source.Substring(start, current - start + 1);
+            string text = source.Substring(start, current - start);
 
-            TokenType type = keywords[text];
+            TokenType type = TokenType.NONE;
+
+            if (keywords.ContainsKey(text))
+            {
+                type = keywords[text];
+            }
+
             if (type == TokenType.NONE) type = TokenType.IDENTIFIER;
             addToken(type);
         }
@@ -136,18 +142,24 @@ namespace Interpreter
                 while (isDigit(peek())) advance();
             }
 
-            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start + 1)));
+            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
         }
 
         private void interpretString()
         {
-            while (peek() != '"' && !isAtEnd()) {
-                if (peek() == '\n') line++;
+            while (peek() != '"' && !isAtEnd())
+            {
+                if (peek() == '\n')
+                {
+                    line++;
+                }
+
                 advance();
             }
 
             // Unterminated string.                                 
-            if (isAtEnd()) {
+            if (isAtEnd())
+            {
                 Box.Box.error(line, "Unterminated string.");
                 return;
             }
