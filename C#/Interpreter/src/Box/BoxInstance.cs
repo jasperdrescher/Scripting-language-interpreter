@@ -29,7 +29,7 @@ namespace Interpreter.Box
             return null;
         }
 
-        void set(Token name, object value)
+        public void set(Token name, object value)
         {
             fields[name.lexeme] = value;
         }

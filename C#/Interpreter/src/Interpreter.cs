@@ -10,7 +10,7 @@ namespace Interpreter
 
         public object call(Interpreter interpreter, List<object> arguments)
         {
-            return (double)System.currentTimeMillis() / 1000.0;
+            return (double)DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
         public string toString()
@@ -201,12 +201,12 @@ namespace Interpreter
             stmt.accept(this);
         }
 
-        void resolve(Expr expr, int depth)
+        public void resolve(Expr expr, int depth)
         {
             locals.put(expr, depth);
         }
 
-        void executeBlock(List<Stmt> statements, Environment environment)
+        public void executeBlock(List<Stmt> statements, Environment environment)
         {
             Environment previous = this.environment;
             try
