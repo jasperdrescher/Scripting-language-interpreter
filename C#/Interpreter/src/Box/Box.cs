@@ -50,8 +50,9 @@ namespace Interpreter.Box
         private static void runPrompt()
         {
             string input = Console.In.ToString();
+            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(input));
 
-            using (var sr = new StreamReader(input))
+            using (var sr = new StreamReader(memoryStream))
             {
                 Console.WriteLine("> ");
                 run(sr.ReadLine());
