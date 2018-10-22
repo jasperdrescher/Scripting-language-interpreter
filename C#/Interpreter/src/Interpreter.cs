@@ -4,6 +4,21 @@ using System.Text;
 
 namespace Interpreter
 {
+    class Clock : Box.BoxCallable
+    {
+        public int arity() { return 0; }
+
+        public object call(Interpreter interpreter, List<object> arguments)
+        {
+            return (double)System.currentTimeMillis() / 1000.0;
+        }
+
+        public string toString()
+        {
+            return "<native fn>";
+        }
+    }
+
     public class Interpreter : Expr.Visitor<object>, Stmt.Visitor<object>
     {
         public Environment globals = new Environment();
@@ -12,17 +27,7 @@ namespace Interpreter
 
         public Interpreter()
         {
-            globals.define("clock", new Box.BoxCallable()
-            {
-              public int arity() { return 0; }
-
-              public object call(Interpreter interpreter, List<object> arguments)
-              {
-                return (double)System.currentTimeMillis() / 1000.0;
-              }
-
-              public string toString() { return "<native fn>"; }
-        });
+            globals.define("clock", new Clock());
         }
 
         public void interpret(List<Stmt> statements)
