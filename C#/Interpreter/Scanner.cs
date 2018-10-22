@@ -223,7 +223,7 @@ namespace Interpreter
 
         private void addToken(TokenType type, object literal)
         {
-            string text = source.Substring(start, current - start + 1);
+            string text = source.Substring(start, current - start);
             tokens.Add(new Token(type, text, literal, line));
         }
     }
