@@ -50,7 +50,7 @@ namespace Interpreter
             Console.WriteLine("Undefined variable '" + name.lexeme + "'.");
         }
 
-        public void define(string name, Object value)
+        public void define(string name, object value)
         {
             values[name] = value;
         }

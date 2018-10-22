@@ -7,6 +7,6 @@ namespace Interpreter.Box
     public interface BoxCallable
     {
         int arity();
-        object call(Interpreter interpreter, List<Object> arguments);
+        object call(Interpreter interpreter, List<object> arguments);
     }
 }
