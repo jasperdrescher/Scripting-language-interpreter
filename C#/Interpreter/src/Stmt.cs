@@ -55,7 +55,7 @@ namespace Interpreter
 
         public class Expression : Stmt
         {
-            public Expression(Expression expression)
+            public Expression(Expr expression)
             {
                 this.expression = expression;
             }
@@ -65,7 +65,7 @@ namespace Interpreter
                 return visitor.visitExpressionStmt(this);
             }
 
-            public Expression expression;
+            public Expr expression;
         }
 
         public class Function : Stmt
