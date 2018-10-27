@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interpreter.Box
 {
-    class Box
+    public class Box
     {
         private static Interpreter interpreter = new Interpreter();
         static bool hadError = false;

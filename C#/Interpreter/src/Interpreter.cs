@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Interpreter.Box;
 using Interpreter.Utils;
 
 namespace Interpreter
 {
-    class Clock : Box.BoxCallable
+    class Clock : BoxCallable
     {
         public int arity() { return 0; }
 
