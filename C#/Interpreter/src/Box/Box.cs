@@ -31,10 +31,12 @@ namespace Interpreter.Box
 
         private static void runFile(string path)
         {
-            string input = File.ReadAllText(path);
-            Console.WriteLine("Contents of {0} are: {1}", path, input);
+            byte[] input = File.ReadAllBytes(path);
+            string content = Encoding.UTF8.GetString(input);
 
-            run(input);
+            Console.WriteLine("Contents of {0} are: {1}", path, content);
+
+            run(content);
 
             // Indicate an error in the exit code.           
             if (hadError)

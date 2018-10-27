@@ -10,7 +10,7 @@ namespace Interpreter.Utils
     {
         public static string IndexedSubstring(this string str, int start, int end)
         {
-            return str.Substring(start, end - start + 1);
+            return str.Substring(start, end - start);
         }
     }
 }
