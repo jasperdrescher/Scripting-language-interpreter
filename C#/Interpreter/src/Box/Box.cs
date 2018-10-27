@@ -31,9 +31,10 @@ namespace Interpreter.Box
 
         private static void runFile(string path)
         {
-            byte[] bytes = File.ReadAllBytes(Path.GetFullPath(path));
+            string input = File.ReadAllText(path);
+            Console.WriteLine("Contents of {0} are: {1}", path, input);
 
-            run(new string(Encoding.UTF8.GetString(bytes).ToCharArray()));
+            run(input);
 
             // Indicate an error in the exit code.           
             if (hadError)
