@@ -121,7 +121,11 @@ namespace Interpreter
                 type = keywords[text];
             }
 
-            if (type == TokenType.NONE) type = TokenType.IDENTIFIER;
+            if (type == TokenType.NONE)
+            {
+                type = TokenType.IDENTIFIER;
+            }
+
             addToken(type);
         }
 
