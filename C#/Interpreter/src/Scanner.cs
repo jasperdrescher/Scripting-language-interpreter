@@ -16,6 +16,24 @@ namespace Interpreter
 
         public Scanner(string source)
         {
+            keywords = new Dictionary<string, TokenType>();
+            keywords.Add("and", TokenType.AND);
+            keywords.Add("class", TokenType.CLASS);
+            keywords.Add("else", TokenType.ELSE);
+            keywords.Add("false", TokenType.FALSE);
+            keywords.Add("for", TokenType.FOR);
+            keywords.Add("fun", TokenType.FUN);
+            keywords.Add("if", TokenType.IF);
+            keywords.Add("nil", TokenType.NIL);
+            keywords.Add("or", TokenType.OR);
+            keywords.Add("print", TokenType.PRINT);
+            keywords.Add("return", TokenType.RETURN);
+            keywords.Add("super", TokenType.SUPER);
+            keywords.Add("this", TokenType.THIS);
+            keywords.Add("true", TokenType.TRUE);
+            keywords.Add("var", TokenType.VAR);
+            keywords.Add("while", TokenType.WHILE);
+
             this.source = source;
         }
 
@@ -93,9 +111,15 @@ namespace Interpreter
             while (isAlphaNumeric(peek())) advance();
 
             // See if the identifier is a reserved word.   
-            string text = source.Substring(start, current - start + 1);
+            string text = source.Substring(start, current - start);
 
-            TokenType type = keywords[text];
+            TokenType type = TokenType.NONE;
+
+            if (keywords.ContainsKey(text))
+            {
+                type = keywords[text];
+            }
+
             if (type == TokenType.NONE) type = TokenType.IDENTIFIER;
             addToken(type);
         }
@@ -118,18 +142,24 @@ namespace Interpreter
                 while (isDigit(peek())) advance();
             }
 
-            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start + 1)));
+            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
         }
 
         private void interpretString()
         {
-            while (peek() != '"' && !isAtEnd()) {
-                if (peek() == '\n') line++;
+            while (peek() != '"' && !isAtEnd())
+            {
+                if (peek() == '\n')
+                {
+                    line++;
+                }
+
                 advance();
             }
 
             // Unterminated string.                                 
-            if (isAtEnd()) {
+            if (isAtEnd())
+            {
                 Box.Box.error(line, "Unterminated string.");
                 return;
             }
@@ -193,7 +223,7 @@ namespace Interpreter
 
         private void addToken(TokenType type, object literal)
         {
-            string text = source.Substring(start, current - start + 1);
+            string text = source.Substring(start, current - start);
             tokens.Add(new Token(type, text, literal, line));
         }
     }
