@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,26 +58,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Box\Box.cs" />
-    <Compile Include="Box\BoxCallable.cs" />
-    <Compile Include="Box\BoxClass.cs" />
-    <Compile Include="Box\BoxFunction.cs" />
-    <Compile Include="Box\BoxInstance.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="Expr.cs" />
-    <Compile Include="Interpreter.cs" />
-    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolver.cs" />
-    <Compile Include="Return.cs" />
-    <Compile Include="RuntimeError.cs" />
-    <Compile Include="Scanner.cs" />
-    <Compile Include="Stmt.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="TokenType.cs" />
+    <Compile Include="src\Box\Box.cs" />
+    <Compile Include="src\Box\BoxCallable.cs" />
+    <Compile Include="src\Box\BoxClass.cs" />
+    <Compile Include="src\Box\BoxFunction.cs" />
+    <Compile Include="src\Box\BoxInstance.cs" />
+    <Compile Include="src\Environment.cs" />
+    <Compile Include="src\Expr.cs" />
+    <Compile Include="src\Interpreter.cs" />
+    <Compile Include="src\Parser.cs" />
+    <Compile Include="src\Resolver.cs" />
+    <Compile Include="src\Return.cs" />
+    <Compile Include="src\RuntimeError.cs" />
+    <Compile Include="src\Scanner.cs" />
+    <Compile Include="src\Stmt.cs" />
+    <Compile Include="src\Token.cs" />
+    <Compile Include="src\TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
