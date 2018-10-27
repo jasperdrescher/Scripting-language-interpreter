@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Interpreter.Utils;
 
 namespace Interpreter
 {
@@ -175,14 +176,13 @@ namespace Interpreter
         private string stringify(object obj)
         {
             if (obj == null) return "nil";
-
-            // Hack. Work around Java adding ".0" to integer-valued doubles.
+            
             if (obj is double)
-                {
+            {
                 string text = obj.ToString();
                 if (text.EndsWith(".0"))
                 {
-                    text = text.Substring(0, text.Length - 2);
+                    text = text.IndexedSubstring(0, text.Length - 2);
                 }
                 return text;
             }

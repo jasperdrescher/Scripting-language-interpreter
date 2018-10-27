@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Interpreter.Utils;
 
 namespace Interpreter
 {
@@ -111,7 +112,7 @@ namespace Interpreter
             while (isAlphaNumeric(peek())) advance();
 
             // See if the identifier is a reserved word.   
-            string text = source.Substring(start, current - start);
+            string text = source.IndexedSubstring(start, current);
 
             TokenType type = TokenType.NONE;
 
@@ -142,7 +143,7 @@ namespace Interpreter
                 while (isDigit(peek())) advance();
             }
 
-            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
+            addToken(TokenType.NUMBER, double.Parse(source.IndexedSubstring(start, current)));
         }
 
         private void interpretString()
@@ -168,7 +169,7 @@ namespace Interpreter
             advance();
 
             // Trim the surrounding quotes.                         
-            string value = source.Substring(start + 1, current - 1 - start + 1);
+            string value = source.IndexedSubstring(start + 1, current - 1);
             addToken(TokenType.STRING, value);
         }
 
@@ -223,7 +224,7 @@ namespace Interpreter
 
         private void addToken(TokenType type, object literal)
         {
-            string text = source.Substring(start, current - start);
+            string text = source.IndexedSubstring(start, current);
             tokens.Add(new Token(type, text, literal, line));
         }
     }
