@@ -6,9 +6,23 @@ using System.Threading.Tasks;
 
 namespace Interpreter.Box
 {
+    class ConsoleWritableOutput : WritableOutput
+    {
+        public void WriteLine(string output)
+        {
+            Console.WriteLine(output);
+        }
+
+        public void Write(string output)
+        {
+            Console.Write(output);
+        }
+    }
+
     public class Box
     {
-        private static Interpreter interpreter = new Interpreter();
+        private static ConsoleWritableOutput writableOutput = new ConsoleWritableOutput();
+        private static Interpreter interpreter = new Interpreter(writableOutput);
         static bool hadError = false;
         static bool hadRuntimeError = false;
 
@@ -106,7 +120,7 @@ namespace Interpreter.Box
             }
         }
 
-        public static void runtimeError(RuntimeError error)
+        public static void ReportError(InterpreterError error)
         {
             Console.WriteLine(error.GetMessage() + "\n[line " + error.GetToken().line + "]");
             hadRuntimeError = true;

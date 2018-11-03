@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Interpreter
 {
-    public class RuntimeError : Exception
+    public class InterpreterError : Exception
     {
         private Token token;
         private string message;
 
-        public RuntimeError(Token token, string message)
+        public InterpreterError(Token token, string message)
         {
             this.token = token;
             this.message = message;

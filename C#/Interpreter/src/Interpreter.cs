@@ -26,25 +26,28 @@ namespace Interpreter
         public static Environment globals = new Environment();
         private Environment environment = globals;
         private Dictionary<Expr, int> locals = new Dictionary<Expr, int>();
+        private WritableOutput writableOutput;
 
-        public Interpreter()
+        public Interpreter(WritableOutput writableOutput)
         {
+            this.writableOutput = writableOutput;
             globals.define("clock", new Clock());
         }
 
         public void interpret(List<Stmt> statements)
         {
-            try
-            {
+          //  try
+          //  {
                 foreach (Stmt statement in statements)
                 {
                     execute(statement);
                 }
-            }
-            catch (RuntimeError error)
-            {
-                Box.Box.runtimeError(error);
-            }
+            //   }
+            //    catch (InterpreterError error)
+            //    {
+            //         Box.Box.ReportError(error);
+            //   }
+            // throw new InterpreterError(null, "ops");
         }
 
         public object visitLiteralExpr(Expr.Literal expr)
@@ -74,7 +77,7 @@ namespace Interpreter
 
             if (!(obj is Box.BoxInstance))
             {
-                throw new RuntimeError(expr.name, "Only instances have fields.");
+                throw new InterpreterError(expr.name, "Only instances have fields.");
             }
 
             object value = evaluate(expr.value);
@@ -94,7 +97,7 @@ namespace Interpreter
 
             if (method == null)
             {
-                throw new RuntimeError(expr.method, "Undefined property '" + expr.method.lexeme + "'.");
+                throw new InterpreterError(expr.method, "Undefined property '" + expr.method.lexeme + "'.");
             }
 
             return method;
@@ -148,14 +151,14 @@ namespace Interpreter
         private void checkNumberOperand(Token oper, object operand)
         {
             if (operand is double) return;
-            throw new RuntimeError(oper, "Operand must be a number.");
+            throw new InterpreterError(oper, "Operand must be a number.");
         }
 
         private void checkNumberOperands(Token oper, object left, object right)
         {
             if (left is double && right is double) return;
 
-            throw new RuntimeError(oper, "Operands must be numbers.");
+            throw new InterpreterError(oper, "Operands must be numbers.");
         }
 
         private bool isTruthy(object obj)
@@ -243,7 +246,7 @@ namespace Interpreter
                 superclass = evaluate(stmt.superclass);
                 if (!(superclass is Box.BoxClass))
                 {
-                    throw new RuntimeError(stmt.superclass.name, "Superclass must be a class.");
+                    throw new InterpreterError(stmt.superclass.name, "Superclass must be a class.");
                 }
             }
 
@@ -302,7 +305,7 @@ namespace Interpreter
         public object visitPrintStmt(Stmt.Print stmt)
         {
             object value = evaluate(stmt.expression);
-            Console.WriteLine(stringify(value));
+            writableOutput.WriteLine(stringify(value));
             return null;
         }
 
@@ -392,7 +395,7 @@ namespace Interpreter
                         return (string)left + (string)right;
                     }
 
-                    throw new RuntimeError(expr.oper, "Operands must be two numbers or two strings.");
+                    throw new InterpreterError(expr.oper, "Operands must be two numbers or two strings.");
                 case TokenType.SLASH:
                     checkNumberOperands(expr.oper, left, right);
                     return (double)left / (double)right;
@@ -418,14 +421,14 @@ namespace Interpreter
 
             if (!(callee is Box.BoxCallable))
             {
-                throw new RuntimeError(expr.paren, "Can only call functions and classes.");
+                throw new InterpreterError(expr.paren, "Can only call functions and classes.");
             }
 
             Box.BoxCallable function = (Box.BoxCallable)callee;
 
             if (arguments.Count != function.arity())
             {
-                throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.Count + ".");
+                throw new InterpreterError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.Count + ".");
             }
 
             return function.call(this, arguments);
@@ -439,7 +442,7 @@ namespace Interpreter
                 return ((Box.BoxInstance)obj).Get(expr.name);
             }
 
-            throw new RuntimeError(expr.name, "Only instances have properties.");
+            throw new InterpreterError(expr.name, "Only instances have properties.");
         }
     }
 }

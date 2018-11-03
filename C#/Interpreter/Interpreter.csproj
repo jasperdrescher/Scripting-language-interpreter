@@ -70,12 +70,13 @@
     <Compile Include="src\Parser.cs" />
     <Compile Include="src\Resolver.cs" />
     <Compile Include="src\Return.cs" />
-    <Compile Include="src\RuntimeError.cs" />
+    <Compile Include="src\InterpreterError.cs" />
     <Compile Include="src\Scanner.cs" />
     <Compile Include="src\Stmt.cs" />
     <Compile Include="src\Token.cs" />
     <Compile Include="src\TokenType.cs" />
     <Compile Include="src\Utils\Utils.cs" />
+    <Compile Include="src\WritableOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

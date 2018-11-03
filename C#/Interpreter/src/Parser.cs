@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Interpreter
 {
-    class Parser
+    public class Parser
     {
         private List<Token> tokens;
         private int current = 0;
