@@ -36,7 +36,7 @@ namespace GenerateAst
                         "Var        : Token name, Expr initializer",
                         "While      : Expr condition, Stmt body"
             });
-      }
+        }
 
         private static void DefineAst(string path, string baseName, string[] types)
         {
@@ -47,68 +47,73 @@ namespace GenerateAst
             }
         }
 
-      private static void NameSpace(StreamWriter writer)
+        private static void NameSpace(StreamWriter writer)
         {
-         writer.WriteLine("using System.Collections.Generic;");
-         writer.WriteLine();
-         writer.WriteLine("namespace NLox {");
-      }
+            writer.WriteLine("using System.Collections.Generic;");
+            writer.WriteLine();
+            writer.WriteLine("namespace NLox {");
+        }
 
-      private static void AbstractClass(StreamWriter writer, string baseName, string[] types)
+        private static void AbstractClass(StreamWriter writer, string baseName, string[] types)
         {
-         writer.WriteLine();
-         writer.WriteLine($"   internal abstract class {baseName} {{");
-         VisitorInterface(writer, baseName, types);
-         writer.WriteLine();
-         writer.WriteLine($"      public abstract T Accept<T>(I{baseName}Visitor<T> visitor);");
-         foreach (var type in types) {
-            var className = type.Split(':')[0].Trim();
-            var fields = type.Split(':')[1].Trim();
-            DefineSubclass(writer, baseName, className, fields);
-         }
-         writer.WriteLine("   }");
-      }
+            writer.WriteLine();
+            writer.WriteLine($"   internal abstract class {baseName} {{");
+            VisitorInterface(writer, baseName, types);
+            writer.WriteLine();
+            writer.WriteLine($"      public abstract T Accept<T>(I{baseName}Visitor<T> visitor);");
+            foreach (var type in types)
+            {
+                var className = type.Split(':')[0].Trim();
+                var fields = type.Split(':')[1].Trim();
+                DefineSubclass(writer, baseName, className, fields);
+            }
+            writer.WriteLine("   }");
+        }
 
-      private static void VisitorInterface(StreamWriter writer, string baseName, string[] types){
-         writer.WriteLine();
-         writer.WriteLine($"      public interface I{baseName}Visitor<T> {{");
-         foreach (var type in types) {
-            var className = type.Split(':')[0].Trim();
-            writer.WriteLine($"         T Visit{className}{baseName}({className} {baseName.ToLower()});");
-         }
-         writer.WriteLine("      }");
-      }
+        private static void VisitorInterface(StreamWriter writer, string baseName, string[] types)
+        {
+            writer.WriteLine();
+            writer.WriteLine($"      public interface I{baseName}Visitor<T> {{");
+            foreach (var type in types)
+            {
+                var className = type.Split(':')[0].Trim();
+                writer.WriteLine($"         T Visit{className}{baseName}({className} {baseName.ToLower()});");
+            }
+            writer.WriteLine("      }");
+        }
 
-      private static void DefineSubclass(StreamWriter writer, string baseName, string className, string fieldList) {
-         writer.WriteLine();
-         writer.WriteLine($"      public class {className} : {baseName} {{");
-         // properties
-         var fields = fieldList.Split(',');
-         foreach (var field in fields) {
-            var trimmed = field.Trim();
-            var type = trimmed.Split(' ')[0].Trim();
-            var name = trimmed.Split(' ')[1].Trim();
-            writer.WriteLine($"         public {type} {Capitalise(name)} {{ get; }}");
-         }
-         // ctor
-         writer.WriteLine($"         public {className} ({fieldList}) {{");
-         // store parameters in fields
-         foreach (var field in fields) {
-            var trimmed = field.Trim();
-            var name = trimmed.Split(' ')[1];
-            writer.WriteLine($"            {Capitalise(name)} = {name};");
-         }
-         writer.WriteLine("         }");
-         // visitor interface
-         writer.WriteLine();
-         writer.WriteLine($"         public override T Accept<T>(I{baseName}Visitor<T> visitor) {{");
-         writer.WriteLine($"            return visitor.Visit{className}{baseName}(this);");
-         writer.WriteLine("         }");
-         writer.WriteLine("      }");
-      }
+        private static void DefineSubclass(StreamWriter writer, string baseName, string className, string fieldList)
+        {
+            writer.WriteLine();
+            writer.WriteLine($"      public class {className} : {baseName} {{");
+            // properties
+            var fields = fieldList.Split(',');
+            foreach (var field in fields) {
+                var trimmed = field.Trim();
+                var type = trimmed.Split(' ')[0].Trim();
+                var name = trimmed.Split(' ')[1].Trim();
+                writer.WriteLine($"         public {type} {Capitalise(name)} {{ get; }}");
+            }
+            // ctor
+            writer.WriteLine($"         public {className} ({fieldList}) {{");
+            // store parameters in fields
+            foreach (var field in fields) {
+                var trimmed = field.Trim();
+                var name = trimmed.Split(' ')[1];
+                writer.WriteLine($"            {Capitalise(name)} = {name};");
+            }
+            writer.WriteLine("         }");
+            // visitor interface
+            writer.WriteLine();
+            writer.WriteLine($"         public override T Accept<T>(I{baseName}Visitor<T> visitor) {{");
+            writer.WriteLine($"            return visitor.Visit{className}{baseName}(this);");
+            writer.WriteLine("         }");
+            writer.WriteLine("      }");
+        }
 
-      private static string Capitalise(string source) {
-         return source.Substring(0, 1).ToUpper() + source.Substring(1);
-      }
-   }
+        private static string Capitalise(string source)
+        {
+            return source.Substring(0, 1).ToUpper() + source.Substring(1);
+        }
+    }
 }
