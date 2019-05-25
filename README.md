@@ -19,3 +19,12 @@ This interpreter performs a few steps when receiving input:
 Box is similair to high-level scripting languages liek JavaScript and Lua. Two of the main aspects are:
 - Dynamic typing
 - Automatic memory management
+
+Besides those aspects Box can handle:
+- Data types
+- Expressions
+- Statements
+- Variables
+- Control flows
+- Functions
+- Classes
