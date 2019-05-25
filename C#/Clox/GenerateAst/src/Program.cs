@@ -6,7 +6,7 @@ namespace GenerateAst
     {
         static void Main(string[] args)
         {
-            var outputPath = @"D:\dev\software\nlox\nlox\";
+            var outputPath = @"\";
             DefineAst(
                 outputPath,
                 "Expr",
