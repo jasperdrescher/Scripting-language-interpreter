@@ -241,9 +241,15 @@ namespace Interpreter
 
         public object visitVariableExpr(Expr.Variable expr)
         {
-            if (scopes.Count > 0 && scopes.Peek()[expr.name.lexeme] == false)
+            if (scopes.Count > 0)
             {
-                Box.Box.error(expr.name, "Cannot read local variable in its own initializer.");
+                if (scopes.Peek().ContainsKey(expr.name.lexeme))
+                {
+                    if (scopes.Peek()[expr.name.lexeme] == false)
+                    {
+                        Box.Box.error(expr.name, "Cannot read local variable in its own initializer.");
+                    }
+                }
             }
 
             resolveLocal(expr, expr.name);
