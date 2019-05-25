@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Interpreter.Utils;
 
 namespace Interpreter
@@ -147,7 +148,7 @@ namespace Interpreter
                 while (isDigit(peek())) advance();
             }
 
-            addToken(TokenType.NUMBER, double.Parse(source.IndexedSubstring(start, current)));
+            addToken(TokenType.NUMBER, double.Parse(source.IndexedSubstring(start, current), System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo));
         }
 
         private void interpretString()
