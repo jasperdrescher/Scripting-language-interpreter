@@ -16,7 +16,7 @@ This interpreter performs a few steps when receiving input:
 7. Runtime representation
 
 ## The Lox language
-[Lox](http://www.craftinginterpreters.com/the-lox-language.html) is similair to high-level scripting languages liek JavaScript and Lua. Two of the main aspects are:
+[Lox](http://www.craftinginterpreters.com/the-lox-language.html) is similair to high-level scripting languages like JavaScript and Lua. Two of the main aspects are:
 - Dynamic typing
 - Automatic memory management
 
