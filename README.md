@@ -1,6 +1,6 @@
 # Scripting-language-interpreter
 A full-featured scripting language interpreter based on [Crafting Interpreters](http://craftinginterpreters.com/).
-This interpreter handles scripts written in the Box language, a high-level scripting language based on the ECMA specifications of JavaScript.
+This interpreter handles scripts written in the [Lox](http://www.craftinginterpreters.com/the-lox-language.html) language, a high-level scripting language based on the ECMA specifications of JavaScript.
 
 # About this project
 This project is at the forefront of an open-source serious game (currently in pre-production). The goal is to write a scripting language interpreter that can perform runtime behaviour in game engines like Unity.
