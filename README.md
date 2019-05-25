@@ -20,7 +20,7 @@ This interpreter performs a few steps when receiving input:
 - Dynamic typing
 - Automatic memory management
 
-Besides those aspects Box can handle:
+Besides those aspects Lox can handle:
 - Data types
 - Expressions
 - Statements
