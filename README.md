@@ -1,35 +1,3 @@
 # Scripting-language-interpreter
-A full-featured scripting language interpreter.
-
-## Table of contents
-- [Usage](#usage)
-    - [Prerequisites](#prerequisites)
-    - [Steps](#steps)
-- [Features](#features)
-- [References](#references)
-- [Contributors](#contributors)
-- [License](#license)
-
-## Usage
-N/A
-
-### Prerequisites
-Name | Description | Version
------------- | ------------- | -------------
-[N/A](#) | N/A | N/A
-
-### Steps
-N/A
-
-### Features
-N/A
-    
-## References
-N/A
-
-## Contributors
-N/A
-
-## License
-This project is licensed under the [MIT License](https://github.com/JasperDre/Scripting-language-interpreter/blob/master/LICENSE.md).
-Licenses of tools and dependencies are not included and may vary.
+A full-featured scripting language interpreter based on [Crafting Interpreters](http://craftinginterpreters.com/).
+This interpreter handles scripts written in the Box language, a high-level scripting language based on the ECMA specifications of JavaScript.
