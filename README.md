@@ -15,8 +15,8 @@ This interpreter performs a few steps when receiving input:
 6. Code generation
 7. Runtime representation
 
-## The Box language
-Box is similair to high-level scripting languages liek JavaScript and Lua. Two of the main aspects are:
+## The Lox language
+[Lox](http://www.craftinginterpreters.com/the-lox-language.html) is similair to high-level scripting languages liek JavaScript and Lua. Two of the main aspects are:
 - Dynamic typing
 - Automatic memory management
 
@@ -28,3 +28,13 @@ Besides those aspects Box can handle:
 - Control flows
 - Functions
 - Classes
+
+An example of Lox code:
+```javascript
+// This is a test
+var test = 5;
+for (var i = 0; i < test; i = i + 1)
+{
+    print i;
+}
+```
