@@ -43,28 +43,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AstPrinter.cs" />
-    <Compile Include="Clock.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="Expr.cs" />
-    <Compile Include="ICallable.cs" />
-    <Compile Include="Interpreter.cs" />
-    <Compile Include="Lox\Lox.cs" />
-    <Compile Include="Lox\LoxClass.cs" />
-    <Compile Include="Lox\LoxFunction.cs" />
-    <Compile Include="Lox\LoxInstance.cs" />
-    <Compile Include="Nothing.cs" />
-    <Compile Include="ParseError.cs" />
-    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolver.cs" />
-    <Compile Include="Return.cs" />
-    <Compile Include="RpnPrinter.cs" />
-    <Compile Include="RuntimeError.cs" />
-    <Compile Include="Scanner.cs" />
-    <Compile Include="Stmt.cs" />
-    <Compile Include="Token.cs" />
-    <Compile Include="TokenType.cs" />
+    <Compile Include="src\AstPrinter.cs" />
+    <Compile Include="src\Clock.cs" />
+    <Compile Include="src\Environment.cs" />
+    <Compile Include="src\Expr.cs" />
+    <Compile Include="src\ICallable.cs" />
+    <Compile Include="src\Interpreter.cs" />
+    <Compile Include="src\Lox\Lox.cs" />
+    <Compile Include="src\Lox\LoxClass.cs" />
+    <Compile Include="src\Lox\LoxFunction.cs" />
+    <Compile Include="src\Lox\LoxInstance.cs" />
+    <Compile Include="src\Nothing.cs" />
+    <Compile Include="src\ParseError.cs" />
+    <Compile Include="src\Parser.cs" />
+    <Compile Include="src\Resolver.cs" />
+    <Compile Include="src\Return.cs" />
+    <Compile Include="src\RpnPrinter.cs" />
+    <Compile Include="src\RuntimeError.cs" />
+    <Compile Include="src\Scanner.cs" />
+    <Compile Include="src\Stmt.cs" />
+    <Compile Include="src\Token.cs" />
+    <Compile Include="src\TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
